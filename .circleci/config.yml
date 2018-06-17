@@ -2,6 +2,8 @@ version: 2
 jobs:
   build:
     working_directory: ~/test.loadimpact.com
+    docker: 
+      - image: docker:18.05.0-ce-git
     steps:
       - checkout
       - run:
