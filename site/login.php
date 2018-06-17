@@ -21,21 +21,21 @@
     if ($login == "admin" && $password == "123")
     {
       $logged_in = true;
-      setcookie('uid', '3221', time()+3600, '/', 'test.loadimpact.com', false, true);
-      setcookie('sid', '39b77ac6-39c4-4c43-98b3-6b2816682036', time()+3600, '/', 'test.loadimpact.com', false, true);
+      setcookie('uid', '3221', time()+3600, '/', '##WEB_HOSTNAME##', false, true);
+      setcookie('sid', '39b77ac6-39c4-4c43-98b3-6b2816682036', time()+3600, '/', '##WEB_HOSTNAME##', false, true);
     }
     else if ($login == "test_user" && $password == "1234")
     {
       $logged_in = true;
-      setcookie('uid', '2233', time()+3600, '/', 'test.loadimpact.com', false, true);
-      setcookie('sid', '45b77ac6-39c4-4c43-98b3-6b2816682036', time()+3600, '/', 'test.loadimpact.com', false, true);
+      setcookie('uid', '2233', time()+3600, '/', '##WEB_HOSTNAME##', false, true);
+      setcookie('sid', '45b77ac6-39c4-4c43-98b3-6b2816682036', time()+3600, '/', '##WEB_HOSTNAME##', false, true);
     }
   }
 
   if (!$logged_in)
   {
-    setcookie('uid', 'bad', time()+3600, '/', 'test.loadimpact.com', false, true);
-    setcookie('sid', 'bad', time()+3600, '/', 'test.loadimpact.com', false, true);
+    setcookie('uid', 'bad', time()+3600, '/', '##WEB_HOSTNAME##', false, true);
+    setcookie('sid', 'bad', time()+3600, '/', '##WEB_HOSTNAME##', false, true);
   }
 
   if (isset($request_type['redir']))
@@ -76,6 +76,6 @@
     }
   }
 ?>
-<p><small>Imitation page. Copyright &copy; <? print(date('Y')); ?>, Loadimpact.com</small></p>
+<p><small>Imitation page. Copyright &copy; <? print(gmdate('Y')); ?>, Loadimpact.com</small></p>
 </body>
 </html>

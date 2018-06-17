@@ -17,7 +17,7 @@
       $messages = array(
          array(
            'from' => 'DenyHosts',
-           'subject' => 'DenyHosts report on test.loadimpact.com',
+           'subject' => 'DenyHosts report on ##WEB_HOSTNAME##',
           ),
          array(
            'from' => 'Twitter',
@@ -99,7 +99,7 @@
 </form>
 <? } ?>
 
-<p><small>Imitation page. Copyright &copy; <? print(date('Y')); ?>, Loadimpact.com</small></p>
+<p><small>Imitation page. Copyright &copy; <? print(gmdate('Y')); ?>, Loadimpact.com</small></p>
 
 </body>
 </html>

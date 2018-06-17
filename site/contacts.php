@@ -15,7 +15,7 @@ G&ouml;tgatan 14<br>
 <b>sales@loadimpact.com</b><br>
 </address>
 
-<p><small>Imitation page. Copyright &copy; <? print(date('Y')); ?>, Loadimpact.com</small></p>
+<p><small>Imitation page. Copyright &copy; <? print(gmdate('Y')); ?>, Loadimpact.com</small></p>
 
 </body>
 </html>

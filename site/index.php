@@ -27,8 +27,7 @@ feed them to the load generator.</p>
 <li><a href="/flip_coin.php">Coin flip game</a></li>
 <li><a href="/pi.php?decimals=3">PI digits</a></li>
 </ul>
-
-<p><small>Copyright &copy; <? print(date('Y')); ?>, Loadimpact.com</small></p>
+<p><small>Copyright &copy; <? print(gmdate('Y')); ?>, Loadimpact.com</small></p>
 
 </tr></td></table>
 

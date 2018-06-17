@@ -1,0 +1,20 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/test.loadimpact.com
+    steps:
+      - checkout
+      - run:
+          command: |
+            BRANCH_NAME=$CIRCLE_BRANCH
+            TAG="latest"
+
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker build -t loadimpact/test.loadimpact.com :$TAG .
+            docker tag loadimpact/test.loadimpact.com :$TAG loadimpact/test.loadimpact.com :$BRANCH_NAME-$CIRCLE_BUILD_NUM
+            docker push loadimpact/test.loadimpact.com :$TAG
+            docker push loadimpact/test.loadimpact.com :$BRANCH_NAME-$CIRCLE_BUILD_NUM
+
+
+
+

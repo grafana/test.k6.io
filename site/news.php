@@ -35,7 +35,7 @@ to do so.</p>
 <h4>April the 1<sup>st</sup>, 1976</h4>
 <p>Apple Inc. is formed by Steve Jobs and Steve Wozniak.</p>
 
-<p><small>Imitation page. Copyright &copy; <? print(date('Y')); ?>, Loadimpact.com</small></p>
+<p><small>Imitation page. Copyright &copy; <? print(gmdate('Y')); ?>, Loadimpact.com</small></p>
 
 </body>
 </html>
