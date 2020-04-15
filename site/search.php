@@ -75,7 +75,7 @@
 </table>
 <? } ?>
 
-<p><small>Imitation page. Copyright &copy; <? print(gmdate('Y')); ?>, Loadimpact.com</small></p>
+<p><small>Imitation page. Copyright &copy; <? print(gmdate('Y')); ?>, k6.io</small></p>
 
 </body>
 </html>

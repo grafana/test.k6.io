@@ -49,6 +49,7 @@
 <head>
 <title>Login</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" href="/static/favicon.ico" sizes="32x32">
 </head>
 <body>
 <?
@@ -76,6 +77,6 @@
     }
   }
 ?>
-<p><small>Imitation page. Copyright &copy; <? print(gmdate('Y')); ?>, Loadimpact.com</small></p>
+<p><small>Imitation page. Copyright &copy; <? print(gmdate('Y')); ?>, k6.io</small></p>
 </body>
 </html>

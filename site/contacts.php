@@ -3,19 +3,20 @@
 <head>
 <title>Contacts</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" href="/static/favicon.ico" sizes="32x32">
 </head>
 <body>
 <p><a href="/">&lt; Back</a></p>
 
 <h3>Contact us</h3>
 <address>
-Load Impact (Gatorhole AB)<br>
+k6 (Load Impact AB)<br>
 G&ouml;tgatan 14<br>
 118 46 Stockholm, Sweden<br>
-<b>sales@loadimpact.com</b><br>
+<b>support@k6.io</b><br>
 </address>
 
-<p><small>Imitation page. Copyright &copy; <? print(gmdate('Y')); ?>, Loadimpact.com</small></p>
+<p><small>Imitation page. Copyright &copy; <? print(gmdate('Y')); ?>, k6.io</small></p>
 
 </body>
 </html>

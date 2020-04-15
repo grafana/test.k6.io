@@ -3,6 +3,7 @@
 <head>
 <title>News</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" href="/static/favicon.ico" sizes="32x32">
 </head>
 <body>
 
@@ -35,7 +36,7 @@ to do so.</p>
 <h4>April the 1<sup>st</sup>, 1976</h4>
 <p>Apple Inc. is formed by Steve Jobs and Steve Wozniak.</p>
 
-<p><small>Imitation page. Copyright &copy; <? print(gmdate('Y')); ?>, Loadimpact.com</small></p>
+<p><small>Imitation page. Copyright &copy; <? print(gmdate('Y')); ?>, k6.io</small></p>
 
 </body>
 </html>
