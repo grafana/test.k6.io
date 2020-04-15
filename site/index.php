@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="/static/favicon.ico" sizes="32x32">
     <link rel="stylesheet" href="/static/css/site.css" type="text/css">
-    <title>APIs demonstrating the power of k6</title>
+    <title>Demo website for load testing</title>
 </head>
 <body>
 <main class="page">
@@ -62,7 +62,7 @@
             <tr>
                 <td>GET</td>
                 <td><a href="/pi.php?decimals=3">/pi.php?decimals=3</a></td>
-                <td>π calculating pi decimals</td>
+                <td>Calculating π decimals</td>
             </tr>
             <tr>
                 <td>GET+POST</td>
