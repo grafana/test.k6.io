@@ -44,8 +44,6 @@
     </header>
     <section class="page-section">
 
-
-
         <h2 class="heading-underlined">Public pages</h2>
         <table>
             <tbody>
@@ -92,6 +90,7 @@
 <code class="code language-js">import http from "k6/http";
 import { check, group, sleep } from "k6";
 import { Counter, Rate, Trend } from "k6/metrics";
+import { randomIntBetween } from "https://jslib.k6.io/k6-utils/1.0.0/index.js";
 
 const loginData = JSON.parse(open("./users.json"));  // download the data file here: https://test.k6.io/static/examples/users.json
 
@@ -104,7 +103,7 @@ ext - Options used by Load Impact cloud service test name and distribution
 export let options = {
     stages: [
         { target: 200, duration: "1m" },
-        { target: 200, duration: "0.1m" },
+        { target: 200, duration: "3m" },
         { target: 0, duration: "1m" }
     ],
     thresholds: {
@@ -114,7 +113,7 @@ export let options = {
     },
     ext: {
         loadimpact: {
-          projectID: 3113635,
+          // projectID: 3113635,
             name: "Insights Demo with Cloud Execution",
             distribution: {
                 scenarioLabel1: { loadZone: "amazon:us:ashburn", percent: 50 },
@@ -125,20 +124,11 @@ export let options = {
 };
 
 // Custom metrics
-// We instatiate them before our main function
-var successfulLogins = new Counter("successful_logins");
-var checkFailureRate = new Rate("check_failure_rate");
-var timeToFirstByte = new Trend("time_to_first_byte", true);
+// We instantiate them before our main function
+let successfulLogins = new Counter("successful_logins");
+let checkFailureRate = new Rate("check_failure_rate");
+let timeToFirstByte = new Trend("time_to_first_byte", true);
 
-/* random number between integers
-This is not necessary - It's added to force a performance alert in the test result
-This is for demonstration purposes.  If you pass an env variable when running your test
-you will force this alert. i.e. URL_ALERT=1 k6 run script.js
-*/
-
-function getRandomArbitrary(min, max) {
-  return Math.random() * (max - min) + min;
-}
 
 /* Main function
 The main function is what the virtual users will loop over during test execution.
@@ -148,17 +138,16 @@ export default function() {
     // You may have other similar actions you wish to "group" together
     group("Front page", function() {
         let res = null;
-        // As mention above, this logic just forces a perf URL_ALERT
+        // As mentioned above, this logic just forces the performance alert for too many urls, use env URL_ALERT to force it
         // It also highlights the ability to programmatically do things right in your script
         if (__ENV.URL_ALERT) {
-            res = http.get("http://test.k6.io/?ts=" + Math.round(getRandomArbitrary(1,2000)));
+            res = http.get("http://test.k6.io/?ts=" + Math.round(randomIntBetween(1,2000)));
         } else {
-            res = http.get("http://test.k6.io/");
+            res = http.get("http://test.k6.io/?ts=" + Math.round(randomIntBetween(1,2000)), { tags: { name: "http://test.k6.io/ Aggregated"}});
         }
         let checkRes = check(res, {
-            "status is 200": (r) => r.status === 200,
-            "body is 1176 bytes": (r) => r.body.length === 1176,
-            "is welcome header present": (r) => r.body.indexOf("Welcome to the k6.io demo site!") !== -1
+            "Homepage body size is 11026 bytes": (r) => r.body.length === 11026,
+            "Homepage welcome header present": (r) => r.body.indexOf("Welcome to the k6.io demo site!") !== -1
         });
 
         // Record check failures
@@ -170,11 +159,11 @@ export default function() {
         // Load static assets
         group("Static assets", function() {
             let res = http.batch([
-                ["GET", "http://test.k6.io/style.css", {}, { tags: { staticAsset: "yes" } }],
-                ["GET", "http://test.k6.io/images/logo.png", {}, { tags: { staticAsset: "yes" } }]
+                ["GET", "http://test.k6.io/static/css/site.css", {}, { tags: { staticAsset: "yes" } }],
+                ["GET", "http://test.k6.io/static/js/prisms.js", {}, { tags: { staticAsset: "yes" } }]
             ]);
             checkRes = check(res[0], {
-                "is status 200": (r) => r.status === 200
+                "Is stylesheet 4859 bytes?": (r) => r.body.length === 4859,
             });
 
             // Record check failures
@@ -185,14 +174,14 @@ export default function() {
             timeToFirstByte.add(res[1].timings.waiting, { ttfbURL: res[1].url, staticAsset: "yes" });
         });
 
-        sleep(10);
     });
+
+    sleep(10);
 
     group("Login", function() {
         let res = http.get("http://test.k6.io/my_messages.php");
         let checkRes = check(res, {
-            "is status 200": (r) => r.status === 200,
-            "is unauthorized header present": (r) => r.body.indexOf("Unauthorized") !== -1
+            "Users should not be auth'd. Is unauthorized header present?": (r) => r.body.indexOf("Unauthorized") !== -1
         });
 
         // Record check failures
@@ -203,8 +192,7 @@ export default function() {
 
         res = http.post("http://test.k6.io/login.php", { login: credentials.username, password: credentials.password, redir: '1' });
         checkRes = check(res, {
-            "is status 200": (r) => r.status === 200,
-            "is welcome header present": (r) => r.body.indexOf("Welcome, admin!") !== -1
+            "is logged in welcome header present": (r) => r.body.indexOf("Welcome, admin!") !== -1
         });
 
         // Record successful logins
