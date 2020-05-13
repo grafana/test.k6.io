@@ -4,6 +4,6 @@ Simple PHP site we (ab)use as a target for load testing.
 ### Local testing
 
 ```
-cd test.loadimpact.com/
+cd test.k6.io/
 docker build -t testsite . && docker run -p 80:80 testsite
 ```
