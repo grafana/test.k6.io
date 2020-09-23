@@ -1,4 +1,5 @@
 <?
+  session_start();
   //$request_type = &$_POST;
   //$request_type = &$_GET;
 
@@ -8,7 +9,10 @@
 
   $messages = false;
   $username = false;
-
+  
+  $csrftoken = base64_encode(strval(rand(100000000, 999999999)));
+  $_SESSION['csrftoken'] = $csrftoken;
+  
   if ($uid && $sid)
   {
     if ($uid == "3221" && $sid == "39b77ac6-39c4-4c43-98b3-6b2816682036")
@@ -27,7 +31,7 @@
            'from' => 'Mail Delivery Subsystem',
            'subject' => 'Delivery Status Notification (Failure)',
           ),
-        );
+        ); 
     }
     else if ($uid == "2233" && $sid == "45b77ac6-39c4-4c43-98b3-6b2816682036")
     {
@@ -40,7 +44,7 @@
         );
     }
   }
-?>
+?> 
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -60,7 +64,8 @@
 <code>test_user</code>/<code>1234</code></small></p>
 
 <form method="POST" action="/login.php">
-<input type="hidden" name="redir" value="1">
+<input type="hidden" name="redir" value="1"> 
+<input type="hidden" name="csrftoken" value="<?= $csrftoken ?>">
 <table cellpadding="5" cellspacing="0" border="0" width="1%">
 <tr>
   <td>Login:</td><td><input type="text" name="login" autocomplete="off"></td>
@@ -93,9 +98,10 @@
 ?>
 </tr>
 </table>
-<br>
+<br> 
 <form method="POST" action="/login.php">
-<input type="hidden" name="redir" value="1">
+<input type="hidden" name="redir" value="1"> 
+<input type="hidden" name="csrftoken" value="<?= $csrftoken ?>">
 <input type="submit" value="Logout">
 </form>
 <? } ?>
