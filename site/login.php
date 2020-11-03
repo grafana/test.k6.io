@@ -1,6 +1,4 @@
 <?
-  session_start();
-
   $request_type = &$_POST;
   //$request_type = &$_GET;
 
@@ -17,9 +15,11 @@
   $password = isset($request_type['password'])
     ? strval($request_type['password'])
     : false
-    ; 
+    ;
+  
+  $expected_csrftoken = isset($_COOKIE['csrf']) ? strval($_COOKIE['csrf']) : false;
  
-  $valid_token = $_SESSION['csrftoken'] == $csrftoken;
+  $valid_token = $expected_csrftoken == $csrftoken;
    
   $logged_in = false; 
 

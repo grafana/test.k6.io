@@ -1,5 +1,4 @@
 <?
-  session_start();
   //$request_type = &$_POST;
   //$request_type = &$_GET;
 
@@ -9,9 +8,9 @@
 
   $messages = false;
   $username = false;
-  
+    
   $csrftoken = base64_encode(strval(rand(100000000, 999999999)));
-  $_SESSION['csrftoken'] = $csrftoken;
+  setcookie('csrf', $csrftoken, time()+3600, '/', '##WEB_HOSTNAME##', false, true); 
   
   if ($uid && $sid)
   {
