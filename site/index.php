@@ -183,6 +183,16 @@ export default function() {
         let checkRes = check(res, {
             "Users should not be auth'd. Is unauthorized header present?": (r) => r.body.indexOf("Unauthorized") !== -1
         });
+            
+        //extracting the CSRF token from the response
+
+        const vars = {};
+
+        vars["csrftoken"] = res
+            .html()
+            .find("input[name=csrftoken]")
+            .first()
+            .attr("value");    
 
         // Record check failures
         checkFailureRate.add(!checkRes);
@@ -190,7 +200,7 @@ export default function() {
         let position = Math.floor(Math.random()*loginData.users.length);
         let credentials = loginData.users[position];
 
-        res = http.post("http://test.k6.io/login.php", { login: credentials.username, password: credentials.password, redir: '1' });
+        res = http.post("http://test.k6.io/login.php", { login: credentials.username, password: credentials.password, redir: '1', csrftoken: `${vars["csrftoken"]}` });
         checkRes = check(res, {
             "is logged in welcome header present": (r) => r.body.indexOf("Welcome, admin!") !== -1
         });
