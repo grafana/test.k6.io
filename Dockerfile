@@ -11,7 +11,7 @@ COPY entrypoint.sh /bin/entrypoint.sh
 
 RUN chmod 777 /bin/entrypoint.sh
 
-EXPOSE 80
+EXPOSE 8080
 
 ENV WEB_HOSTNAME=$hostname
 CMD ["/bin/entrypoint.sh"]
