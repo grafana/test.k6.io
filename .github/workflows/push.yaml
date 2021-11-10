@@ -30,4 +30,4 @@ jobs:
           context: .
           push: true
           file: Dockerfile
-          tags: loadimpact/test.k6.io:latest,loadimpact/httpbin:${{ github.event.release.tag_name }}
+          tags: loadimpact/test.k6.io:latest,loadimpact/test.k6.io:${{ github.event.release.tag_name }}
