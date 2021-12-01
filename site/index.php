@@ -134,7 +134,7 @@ let timeToFirstByte = new Trend("time_to_first_byte", true);
 The main function is what the virtual users will loop over during test execution.
 */
 export default function() {
-    // We define our first group.  Pages naturally fit a concept of a group
+    // We define our first group. Pages naturally fit a concept of a group
     // You may have other similar actions you wish to "group" together
     group("Front page", function() {
         let res = null;
