@@ -11,7 +11,7 @@ jobs:
     name: "Build"
     runs-on: ubuntu-latest
     steps:
-      - name: Check Out Repo 
+      - name: Check Out Repo
         uses: actions/checkout@v2
 
       - name: Login to Docker Hub
@@ -30,4 +30,4 @@ jobs:
           context: .
           push: true
           file: Dockerfile
-          tags: loadimpact/test.k6.io:latest,loadimpact/test.k6.io:${{ github.event.release.tag_name }}
+          tags: grafana/test.k6.io:latest,grafana/test.k6.io:${{ github.event.release.tag_name }}
