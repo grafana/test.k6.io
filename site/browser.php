@@ -4,22 +4,22 @@
 <head>
     <script>
         function getCookies() {
-            const cDisplay = document.getElementById("cookies-demo");
+            const cDisplay = document.getElementById("cookies-info-display");
             cDisplay.textContent = "Cookies: " + document.cookie;
         }
 
         function getUserAgent() {
-            const uaDisplay = document.getElementById("useragent-demo");
+            const uaDisplay = document.getElementById("useragent-info-display");
             uaDisplay.textContent = "Your UserAgent: " + navigator.userAgent;
         }
 
         function getTimezone() {
-            const tzDisplay = document.getElementById("timezone-demo");
+            const tzDisplay = document.getElementById("timezone-info-display");
             tzDisplay.textContent = "Timezone: " + Intl.DateTimeFormat().resolvedOptions().timeZone;
         }
 
         function networkStatus() {
-            const nsDisplay = document.getElementById("network-demo");
+            const nsDisplay = document.getElementById("network-info-display");
             nsDisplay.textContent = "Network Status: " + navigator.onLine;
         }
 
@@ -28,12 +28,12 @@
                 let lat = position.coords.latitude;
                 let long = position.coords.longitude;
 
-                document.getElementById("geolocation-demo").innerHTML = "Lat: " + lat.toFixed(2) + " Long: " + long.toFixed(2) + "";
+                document.getElementById("geolocation-info-display").innerHTML = "Lat: " + lat.toFixed(2) + " Long: " + long.toFixed(2) + "";
             });
         }
 
         function handleCheckboxClick(cb) {
-            const cbDisplay = document.getElementById("checkbox-demo");
+            const cbDisplay = document.getElementById("checkbox-info-display");
             if (cb.checked) {
                 cbDisplay.textContent = "Thanks for checking the box"
             } else {
@@ -42,7 +42,7 @@
         }
 
         function handleInputText(it) {
-            const itDisplay = document.getElementById("text-demo");
+            const itDisplay = document.getElementById("text-info-display");
             if (it.value !== "") {
                 itDisplay.textContent = "Thanks for filling in the input text field"
             } else {
@@ -51,12 +51,12 @@
         }
 
         function inputTextOnFocus(it) {
-            const itDisplay = document.getElementById("text-demo");
+            const itDisplay = document.getElementById("text-info-display");
             itDisplay.textContent = "focused on input text field"
         }
 
         function inputTextOnFocusOut(it) {
-            const itDisplay = document.getElementById("text-demo");
+            const itDisplay = document.getElementById("text-info-display");
             itDisplay.textContent = "focused out off input text field"
         }
 
@@ -66,19 +66,19 @@
                     ? navigator.languages[0]
                     : navigator.language;
 
-            document.getElementById("locale-demo").innerHTML = userLocale;
+            document.getElementById("locale-info-display").innerHTML = userLocale;
         }
 
         var counter = 0;
         function incrementCounter() {
-            const counterDisplay = document.getElementById("counter-demo");
+            const counterDisplay = document.getElementById("counter-info-display");
             console.log(counter)
             counterDisplay.textContent = "Counter: " + ++counter;
             console.log(counter);
         }
 
         function selectOnChange(sel) {
-            const sDisplay = document.getElementById("select-multiple-demo");
+            const sDisplay = document.getElementById("select-multiple-info-display");
             var opts = "Selected: ", opt;
             var len = sel.options.length;
             for (var i = 0; i < len; i++) {
@@ -101,37 +101,37 @@
         <tr>
             <td><button type="button" onclick="getGeolocation()">Get geolocation</button></td>
             <td>
-                <p id="geolocation-demo">Lat: ? Long: ?</p>
+                <p id="geolocation-info-display">Lat: ? Long: ?</p>
             </td>
         </tr>
         <tr>
             <td>NA</td>
             <td>
-                <p id="locale-demo">Locale: ?</p>
+                <p id="locale-info-display">Locale: ?</p>
             </td>
         </tr>
         <tr>
             <td><button type="button" onclick="networkStatus()">Refresh network status</button></td>
             <td>
-                <p id="network-demo">Network Status: ?</p>
+                <p id="network-info-display">Network Status: ?</p>
             </td>
         </tr>
         <tr>
             <td>NA</td>
             <td>
-                <p id="timezone-demo">Timezone: ?</p>
+                <p id="timezone-info-display">Timezone: ?</p>
             </td>
         </tr>
         <tr>
             <td>NA</td>
             <td>
-                <p id="useragent-demo">Your UserAgent: ?</p>
+                <p id="useragent-info-display">Your UserAgent: ?</p>
             </td>
         </tr>
         <tr>
             <td><button type="button" onclick="getCookies()">Refresh cookies</button></td>
             <td>
-                <p id="cookies-demo">Cookies: ?</p>
+                <p id="cookies-info-display">Cookies: ?</p>
             </td>
         </tr>
         <tr>
@@ -141,19 +141,19 @@
                 <label for="checkbox1">Checkbox test 1</label><br>
             </td>
             <td>
-                <p id="checkbox-demo">No interaction</p>
+                <p id="checkbox-info-display">No interaction</p>
             </td>
         </tr>
         <tr>
             <td><button type="button" id="counter-button" onclick="incrementCounter()">Increment</button></td>
             <td>
-                <p id="counter-demo">Counter: 0</p>
+                <p id="counter-info-display">Counter: 0</p>
             </td>
         </tr>
         <tr>
             <td><input type="text" oninput="handleInputText(this);" onfocus="inputTextOnFocus(this);" onfocusout="inputTextOnFocusOut(this);" id="text1"></td>
             <td>
-                <p id="text-demo">No interaction</p>
+                <p id="text-info-display">No interaction</p>
             </td>
         </tr>
         <tr>
@@ -175,7 +175,7 @@
                     <option value="four">Four</option>
                     <option value="five">Five</option>
                 </select>
-                <p id="select-multiple-demo">Nothing selected</p>
+                <p id="select-multiple-info-display">Nothing selected</p>
             </td>
         </tr>
         <tr>
