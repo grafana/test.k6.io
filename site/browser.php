@@ -50,12 +50,12 @@
             }
         }
 
-        function inputTextOnFocus(it) {
+        function inputTextOnFocus() {
             const itDisplay = document.getElementById("text-info-display");
             itDisplay.textContent = "focused on input text field"
         }
 
-        function inputTextOnFocusOut(it) {
+        function inputTextOnFocusOut() {
             const itDisplay = document.getElementById("text-info-display");
             itDisplay.textContent = "focused out off input text field"
         }
@@ -151,7 +151,7 @@
             </td>
         </tr>
         <tr>
-            <td><input type="text" oninput="handleInputText(this);" onfocus="inputTextOnFocus(this);" onfocusout="inputTextOnFocusOut(this);" id="text1"></td>
+            <td><input type="text" oninput="handleInputText(this);" onfocus="inputTextOnFocus();" onfocusout="inputTextOnFocusOut();" id="text1"></td>
             <td>
                 <p id="text-info-display">No interaction</p>
             </td>
