@@ -67,6 +67,11 @@
                 <td><a href="/flip_coin.php">/flip_coin.php</a></td>
                 <td>Coin flip game</td>
             </tr>
+            <tr>
+                <td>GET</td>
+                <td><a href="/browser.php">/browser.php</a></td>
+                <td>Various HTML elements</td>
+            </tr>
             </tbody>
         </table>
 
