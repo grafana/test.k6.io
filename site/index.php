@@ -63,7 +63,7 @@
                 <td>Calculating π decimals</td>
             </tr>
             <tr>
-                <td>GET+POST</td>
+                <td>GET</td>
                 <td><a href="/flip_coin.php">/flip_coin.php</a></td>
                 <td>Coin flip game</td>
             </tr>
