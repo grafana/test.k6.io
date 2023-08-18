@@ -14,3 +14,10 @@ docker run -p 8080:8080 grafana/test.k6.io
 > When running on Mac M1, pass the option: `--platform linux/x86_64`  
 
 You should now be able to access it at http://localhost:8080/
+
+For development, start the PHP server from the `static` folder:
+
+```sh
+cd static
+php -S localhost:8080
+```
