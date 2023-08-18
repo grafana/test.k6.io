@@ -11,23 +11,33 @@ jobs:
     name: "Build"
     runs-on: ubuntu-latest
     steps:
-      - name: Check Out Repo
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Login to Docker Hub
-        uses: docker/login-action@v1
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.K6_DOCKERHUB_USERNAME }}
           password: ${{ secrets.K6_DOCKERHUB_TOKEN }}
 
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v1
-
-      - name: "Build image"
+      - name: Build and push image
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
           file: Dockerfile
           tags: grafana/test.k6.io:latest,grafana/test.k6.io:${{ github.event.release.tag_name }}
+
+      - name: Update Docker Hub repo description
+        uses: peter-evans/dockerhub-description@v3
+        with:
+          username: ${{ secrets.K6_DOCKERHUB_USERNAME }}
+          password: ${{ secrets.K6_DOCKERHUB_TOKEN }}
+          repository: grafana/test.k6.io
