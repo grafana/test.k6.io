@@ -1,0 +1,105 @@
+---
+kind: pipeline
+type: docker
+name: Test
+platform:
+  os: linux
+  arch: amd64
+trigger:
+  event:
+    - push
+    - pull_request
+    - tag
+  ref:
+    - refs/heads/main
+    - refs/pull/*/head
+    - refs/tags/**
+steps:
+  - name: test
+    image: golang:1.19-bullseye
+    commands:
+      - echo no tests for this repo
+---
+kind: pipeline
+type: docker
+name: Build
+platform:
+  os: linux
+  arch: amd64
+trigger:
+  event:
+    - push
+    - pull_request
+    - tag
+  ref:
+    - refs/heads/main
+    - refs/pull/*/head
+    - refs/tags/**
+
+steps:
+  - name: build
+    image: golang:1.19-bullseye
+    commands:
+      - make build
+---
+kind: pipeline
+type: docker
+name: Containerize
+platform:
+  os: linux
+  arch: amd64
+trigger:
+  event:
+    - push
+    - tag
+  ref:
+    - refs/heads/main
+    - refs/tags/v*
+
+steps:
+  - name: build and push
+    image: docker
+    volumes:
+      - name: docker
+        path: /var/run/docker.sock
+    environment:
+      GCR_CREDS:
+        from_secret: gcr_admin
+    commands:
+      - apk add --update --no-cache make git coreutils
+      - mkdir -p $HOME/.docker
+      - printenv GCR_CREDS > $HOME/.docker/config.json
+      - make push
+
+volumes:
+  - name: docker
+    host:
+      path: /var/run/docker.sock
+---
+kind: secret
+name: gh_token
+
+get:
+  path: infra/data/ci/github/grafanabot
+  name: pat
+---
+kind: secret
+name: dockerconfigjson
+
+get:
+  path: secret/data/common/gcr
+  name: .dockerconfigjson
+
+---
+kind: secret
+name: gcr_admin
+
+get:
+  name: .dockerconfigjson
+  path: infra/data/ci/gcr-admin
+
+---
+kind: signature
+hmac: 937c4aa91f906fe2053514a98326e76d22aa0a21babfd8eb8781a6a2fb9afb54
+
+...
