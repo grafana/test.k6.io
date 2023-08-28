@@ -153,34 +153,7 @@ volumes:
       path: /var/run/docker.sock
 
 ---
-kind: pipeline
-type: docker
-name: Test-image-tagging
-platform:
-  os: linux
-  arch: amd64
-trigger:
-  event:
-    - push
-    - pull_request
-  ref:
-    - refs/heads/main
-    - refs/pull/*/head
-
-image_pull_secrets:
-  - dockerconfigjson
-
-steps:
-  - name: put image tag in a file
-    image: alpine
-    commands:
-      - apk update && apk add git
-      - test -f ./tools/image-tag || exit 1
-      - echo "$(sh ./tools/image-tag)" > .tag-only || exit 1
-      - echo "us.gcr.io/kubernetes-dev/test.k6.io:$(sh ./tools/image-tag)" > .image-tag || exit 1
-
----
 kind: signature
-hmac: 1325099e491e40f745135a8acd134c6534c035e618c5a570d8c323fd87273798
+hmac: 1591c14399e38dddf3da3a8422d0b8759240bfb01269156d792a65e125520693
 
 ...
