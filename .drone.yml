@@ -118,8 +118,9 @@ steps:
     image: alpine
     commands:
       - apk update && apk add git
-      - echo "$(sh ./tools/image-tag)" > .tag-only
-      - echo "us.gcr.io/kubernetes-dev/<image-name>:$(sh ./tools/image-tag)" > .image-tag
+      - test -f ./tools/image-tag || exit 1
+      - echo "$(sh ./tools/image-tag)" > .tag-only || exit 1
+      - echo "us.gcr.io/kubernetes-dev/test.k6.io:$(sh ./tools/image-tag)" > .image-tag || exit 1
   - name: Update Deployment Tools
     image: us.gcr.io/kubernetes-dev/drone/plugins/updater
     settings:
