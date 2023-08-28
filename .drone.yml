@@ -99,7 +99,60 @@ get:
   path: infra/data/ci/gcr-admin
 
 ---
+
+kind: pipeline
+type: docker
+name: Deploy-To-Deployment-Tools
+platform:
+  os: linux
+  arch: amd64
+trigger:
+  ref:
+    - refs/heads/main
+
+image_pull_secrets:
+  - dockerconfigjson
+
+steps:
+  - name: put image tag in a file
+    image: alpine
+    commands:
+      - apk update && apk add git
+      - echo "$(sh ./tools/image-tag)" > .tag-only
+      - echo "us.gcr.io/kubernetes-dev/<image-name>:$(sh ./tools/image-tag)" > .image-tag
+  - name: Update Deployment Tools
+    image: us.gcr.io/kubernetes-dev/drone/plugins/updater
+    settings:
+      config_json: |-
+        {
+          "destination_branch": "master",
+          "pull_request_branch_prefix": "test-k6-io-",
+          "pull_request_enabled": false,
+          "pull_request_team_reviewers": [
+            "@k6-devops"
+          ],
+          "repo_name": "deployment_tools",
+          "update_jsonnet_attribute_configs": [
+            {
+              "file_path": "ksonnet/environments/k6-test-services/waves.libsonnet",
+              "jsonnet_key": "dev_canary",
+              "jsonnet_value_file": ".image-tag"
+            }
+          ]
+        }
+      github_token:
+        from_secret: gh_token
+
+depends_on:
+  - Containerize
+
+volumes:
+  - name: docker
+    host:
+      path: /var/run/docker.sock
+
+---
 kind: signature
-hmac: 937c4aa91f906fe2053514a98326e76d22aa0a21babfd8eb8781a6a2fb9afb54
+hmac: 38ca238486d996c0ddb4605f807a4ebe90829196f3737f3cdb9c24848604815b
 
 ...
