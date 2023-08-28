@@ -155,7 +155,7 @@ volumes:
 ---
 kind: pipeline
 type: docker
-name: Deploy-To-Deployment-Tools
+name: Test-image-tagging
 platform:
   os: linux
   arch: amd64
