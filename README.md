@@ -1,4 +1,5 @@
 # k6 PHP Play
+# NOTE: Deprecated, use https://github.com/grafana/quickpizza instead.
 
 Simple PHP site to help you familiarize yourself with k6, deployed at https://k6.grafana.fun/ 
 
